@@ -1,0 +1,15 @@
+[package]
+name = "pyright"
+version = "0.1.0"
+edition = "2021"
+description = """
+A library for interfacing with pyright
+"""
+license = "MIT"
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+regex = "1.10.4"
+anyhow = "1.0.82"
+serde = { version = "1.0.200", features = ["derive"] }
+serde_json = "1.0.116"

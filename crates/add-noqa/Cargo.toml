@@ -1,0 +1,22 @@
+[package]
+name = "pyright-add-noqa"
+version = "0.1.0"
+edition = "2021"
+description = """
+CLI tool to disable rules automatically based on the output of pyright using # pyright: rule=false or # pyright: ignore [rule] comments
+
+usage:
+
+    pyright --outputjson > pyright.json
+    pyright-add-noqa.exe pyright.json
+"""
+license = "MIT"
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.82"
+clap = { workspace = true, features = ["derive"] }
+itertools = "0.12.1"
+pyright = { path = "../pyright" }
+regex = "1.10.4"
+serde_json = "1.0.116"
