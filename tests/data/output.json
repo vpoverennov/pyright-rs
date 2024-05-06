@@ -1,6 +1,6 @@
 {
     "version": "1.1.361",
-    "time": "1714882704065",
+    "time": "1714992340598",
     "generalDiagnostics": [
         {
             "file": "c:\\pyright\\tests\\data\\no_pyright_comment.py",
@@ -72,11 +72,11 @@
             "message": "Expression of type \"float\" is incompatible with declared type \"int\"\n┬á┬á\"float\" is incompatible with \"int\"",
             "range": {
                 "start": {
-                    "line": 2,
+                    "line": 3,
                     "character": 16
                 },
                 "end": {
-                    "line": 2,
+                    "line": 3,
                     "character": 18
                 }
             },
@@ -88,11 +88,11 @@
             "message": "Declaration \"var2\" is obscured by a declaration of the same name",
             "range": {
                 "start": {
-                    "line": 3,
+                    "line": 4,
                     "character": 4
                 },
                 "end": {
-                    "line": 3,
+                    "line": 4,
                     "character": 8
                 }
             },
@@ -104,11 +104,11 @@
             "message": "Expression of type \"str\" is incompatible with declared type \"int\"\n┬á┬á\"str\" is incompatible with \"int\"",
             "range": {
                 "start": {
-                    "line": 3,
+                    "line": 4,
                     "character": 16
                 },
                 "end": {
-                    "line": 3,
+                    "line": 4,
                     "character": 18
                 }
             },
@@ -120,11 +120,11 @@
             "message": "Expression of type \"int\" is incompatible with return type \"None\"\n┬á┬á\"int\" is incompatible with \"None\"",
             "range": {
                 "start": {
-                    "line": 6,
+                    "line": 7,
                     "character": 11
                 },
                 "end": {
-                    "line": 6,
+                    "line": 7,
                     "character": 15
                 }
             },
@@ -136,31 +136,15 @@
             "message": "Expression of type \"float\" is incompatible with declared type \"int\"\n┬á┬á\"float\" is incompatible with \"int\"",
             "range": {
                 "start": {
-                    "line": 1,
+                    "line": 3,
                     "character": 16
                 },
                 "end": {
-                    "line": 1,
+                    "line": 3,
                     "character": 18
                 }
             },
             "rule": "reportAssignmentType"
-        },
-        {
-            "file": "c:\\pyright\\tests\\data\\with_pyright_comment.py",
-            "severity": "error",
-            "message": "Declaration \"var2\" is obscured by a declaration of the same name",
-            "range": {
-                "start": {
-                    "line": 2,
-                    "character": 4
-                },
-                "end": {
-                    "line": 2,
-                    "character": 8
-                }
-            },
-            "rule": "reportRedeclaration"
         },
         {
             "file": "c:\\pyright\\tests\\data\\with_pyright_comment.py",
@@ -168,38 +152,22 @@
             "message": "Expression of type \"str\" is incompatible with declared type \"int\"\n┬á┬á\"str\" is incompatible with \"int\"",
             "range": {
                 "start": {
-                    "line": 2,
+                    "line": 4,
                     "character": 16
                 },
                 "end": {
-                    "line": 2,
+                    "line": 4,
                     "character": 18
                 }
             },
             "rule": "reportAssignmentType"
-        },
-        {
-            "file": "c:\\pyright\\tests\\data\\with_pyright_comment.py",
-            "severity": "error",
-            "message": "Expression of type \"int\" is incompatible with return type \"None\"\n┬á┬á\"int\" is incompatible with \"None\"",
-            "range": {
-                "start": {
-                    "line": 5,
-                    "character": 11
-                },
-                "end": {
-                    "line": 5,
-                    "character": 15
-                }
-            },
-            "rule": "reportReturnType"
         }
     ],
     "summary": {
-        "filesAnalyzed": 4,
-        "errorCount": 12,
+        "filesAnalyzed": 5,
+        "errorCount": 10,
         "warningCount": 0,
         "informationCount": 0,
-        "timeInSec": 0.143
+        "timeInSec": 0.175
     }
 }

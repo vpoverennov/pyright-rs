@@ -1,6 +1,6 @@
 # pyright: reportRedeclaration=false,reportReturnType=false
-def func1(p1: float, p2: str, p3, **p4) -> None:
 
+def func1(p1: float, p2: str, p3, **p4) -> None:
     var1: int = p1    # This is a type violation
     var2: str = p2    # This is allowed because the types match
     var2: int         # This is an error because it redeclares var2
