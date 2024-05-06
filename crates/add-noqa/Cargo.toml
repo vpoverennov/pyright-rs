@@ -1,6 +1,6 @@
 [package]
 name = "pyright-add-noqa"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 description = """
 CLI tool to disable rules automatically based on the output of pyright using # pyright: rule=false or # pyright: ignore [rule] comments
