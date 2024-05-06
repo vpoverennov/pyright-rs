@@ -9,6 +9,8 @@ use clap::Parser;
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
+    #[clap(long, action)]
+    inline: bool,
     #[arg()]
     pyright_output: PathBuf,
 }
@@ -20,6 +22,6 @@ fn main() -> anyhow::Result<()> {
             .unwrap(),
     )
         .unwrap();
-    apply_ignores(res.general_diagnostics.iter())?;
+    apply_ignores(res.general_diagnostics.iter(), args.inline)?;
     Ok(())
 }

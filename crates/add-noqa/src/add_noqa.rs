@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::fs;
 use std::fs::{File};
 use std::io::{BufRead, BufReader, BufWriter, Read};
 use std::io::Write;
@@ -9,7 +10,9 @@ use itertools::Itertools;
 use pyright::Diagnostic;
 use regex::Regex;
 
-fn add_ignores_to_file<P: AsRef<Path>>(file_path: P, ignores: &Vec<&String>) -> anyhow::Result<()> {
+fn add_ignores_to_file<'a, T: IntoIterator<Item=&'a Diagnostic>>(file_path: &Path, diagnostics: T) -> anyhow::Result<()> {
+    let rules: Vec<&String> = diagnostics.into_iter().filter_map(|d| d.rule.as_ref()).unique().collect();
+
     let file = File::open(&file_path)?;
     let mut reader = BufReader::new(file);
     let mut first_line = String::new();
@@ -29,8 +32,8 @@ fn add_ignores_to_file<P: AsRef<Path>>(file_path: P, ignores: &Vec<&String>) -> 
         need_replace = true
     }
 
-    final_diagnostic_state.reserve(ignores.len());
-    for string_ref in ignores {
+    final_diagnostic_state.reserve(rules.len());
+    for string_ref in rules {
         final_diagnostic_state.insert((*string_ref).clone(), false);
     }
     let diagnostic_comment =
@@ -53,13 +56,50 @@ fn add_ignores_to_file<P: AsRef<Path>>(file_path: P, ignores: &Vec<&String>) -> 
     Ok(())
 }
 
-pub fn apply_ignores<'a, I>(diagnostics: I) -> anyhow::Result<()>
+fn add_ignores_to_lines<'a, T: IntoIterator<Item=&'a Diagnostic>>(file_path: &Path, diagnostics: T) -> anyhow::Result<()> {
+    let mut rules_by_line: HashMap<u64, Vec<&String>> = HashMap::new();
+
+    for item in diagnostics {
+        if let Some(rule) = &item.rule {
+            rules_by_line
+                .entry(item.range.start.line)
+                .or_insert_with(Vec::new)
+                .push(rule);
+        }
+    }
+
+    let file = fs::File::open(file_path)?;
+    let reader = BufReader::new(file);
+
+    let new_lines:Vec<String> = reader.lines().enumerate().map(|(line_number, line)| {
+        let line = line.unwrap();
+        if let Some(rules) = rules_by_line.get(&(line_number as u64 + 1)) {
+            let ignore_comment =
+                rules
+                    .iter()
+                    .sorted()
+                    .join(",");
+            format!("{line}  # pyright: ignore [{ignore_comment}]")
+        } else {
+            line.to_string()
+        }
+    }).collect();
+
+    fs::write(file_path, new_lines.join("\n"))?;
+
+    Ok(())
+}
+
+pub fn apply_ignores<'a, I>(diagnostics: I, inline: bool) -> anyhow::Result<()>
     where
         I: IntoIterator<Item=&'a Diagnostic>,
 {
     for (file_path, group) in &diagnostics.into_iter().group_by(|diagnostic| &diagnostic.file) {
-        let rules: Vec<&String> = group.filter_map(|d| d.rule.as_ref()).unique().collect();
-        add_ignores_to_file(file_path, &rules)?;
+        if inline {
+            add_ignores_to_lines(&file_path, group)?;
+        } else {
+            add_ignores_to_file(&file_path, group)?;
+        }
     }
     Ok(())
 }
