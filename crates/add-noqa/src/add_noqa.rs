@@ -73,7 +73,7 @@ fn add_ignores_to_lines<'a, T: IntoIterator<Item=&'a Diagnostic>>(file_path: &Pa
 
     let new_lines:Vec<String> = reader.lines().enumerate().map(|(line_number, line)| {
         let line = line.unwrap();
-        if let Some(rules) = rules_by_line.get(&(line_number as u64 + 1)) {
+        if let Some(rules) = rules_by_line.get(&(line_number as u64)) {
             let ignore_comment =
                 rules
                     .iter()
