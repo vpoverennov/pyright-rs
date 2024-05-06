@@ -46,7 +46,7 @@ fn add_ignores_to_file<P: AsRef<Path>>(file_path: P, ignores: &Vec<&String>) -> 
     let pyright_line = format!("# pyright: {diagnostic_comment}");
     writeln!(writer, "{pyright_line}")?;
     if !need_replace {
-        writeln!(writer, "{first_line}")?;
+        write!(writer, "{first_line}")?;
     }
     writer.write_all(&buf)?;
 
