@@ -1,6 +1,6 @@
 [package]
 name = "pyright-add-noqa"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 description = """
 CLI tool to disable rules automatically based on the output of pyright using # pyright: rule=false or # pyright: ignore [rule] comments
@@ -17,6 +17,6 @@ license = "MIT"
 anyhow = "1.0.82"
 clap = { workspace = true, features = ["derive"] }
 itertools = "0.12.1"
-pyright = { path = "../pyright", version = "0.1.0"}
+pyright = { path = "../pyright", version = "0.2.0"}
 regex = "1.10.4"
 serde_json = "1.0.116"
