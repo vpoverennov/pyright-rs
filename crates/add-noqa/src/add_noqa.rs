@@ -77,6 +77,7 @@ fn add_ignores_to_lines<'a, T: IntoIterator<Item=&'a Diagnostic>>(file_path: &Pa
             let ignore_comment =
                 rules
                     .iter()
+                    .unique()
                     .sorted()
                     .join(",");
             format!("{line}  # pyright: ignore [{ignore_comment}]")
